@@ -19,4 +19,4 @@ app.include_router(auth.router)
 
 @app.get("/")
 def read_msg():
-    return {"message": "Bienvenidos a mi API REST, una aplicaicón de POST"}
+    return {"message": "Bienvenidos a mi API REST, una aplicaicón de POST creado por richard"}
