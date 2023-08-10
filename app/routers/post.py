@@ -4,7 +4,7 @@ from .. import database, models, schemas, oauth2
 from typing import List, Optional 
 
 
-router = APIRouter(prefix="/posts",tags=[ 'POST'])
+router = APIRouter(prefix="/posts",tags=['POST'])
 
 
 @router.get("/",response_model= List[schemas.Post])
