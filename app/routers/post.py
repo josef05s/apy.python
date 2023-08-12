@@ -48,7 +48,7 @@ def update(post: schemas.PostCreate,id:int,db: Session = Depends(database.get_db
     
     return post_query.first()
 
-@router.delete("/{id}",response_model=schemas.Post)
+@router.delete("/{id}")
 def delete(id:int,db: Session = Depends(database.get_db), current_user:int=Depends(oauth2.get_current_user)):
     post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
