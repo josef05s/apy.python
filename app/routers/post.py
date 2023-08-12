@@ -15,14 +15,15 @@ def get_posts(db: Session = Depends(database.get_db), current_user:int=Depends(o
 
 @router.get("/{id}", response_model = schemas.Post)
 def get_id(id:int,db: Session = Depends(database.get_db), current_user:int=Depends(oauth2.get_current_user)):
-    post = db.query(models.Post).filter(models.Post.id == id)
-    if post.first() == None:
+    post_query = db.query(models.Post).filter(models.Post.id == id)
+    post = post_query.first()
+    if post == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"post with id: {id} does not exist")
     if post.owner_id != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="Not authorized to perform requested action")
-    return post.first()
+    return post
 
 @router.post("/",response_model=schemas.Post)
 def create(post:schemas.PostCreate,db: Session = Depends(database.get_db),current_user:int=Depends(oauth2.get_current_user)):
